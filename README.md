@@ -1,8 +1,8 @@
-## Nama           : M Ilham Firdaus
+## Nama           : Aldi Satriya
 
 ## Kelas          : TI.23.C1
 
-## NIM            : 312310021
+## NIM            : 312310759
 
 ## Mata Kuliah    : Pemrograman Web 2
 

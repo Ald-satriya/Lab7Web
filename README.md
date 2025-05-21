@@ -70,3 +70,21 @@ Penjelasan
 ## Praktikum 4: Modul Login
 
 ![xampp](img/Login.png)
+
+## Praktikum 5 : Pagination dan Pencarian
+### 1. Pagination
+Saya mengedit controller Artikel untuk menampilkan daftar artikel menggunakan paginate(10) dan menampilkan pagination links di view.
+**Screenshot:**
+![xampp](img/pagination.png)
+### 2. Pencarian
+Saya menambahkan fitur pencarian dengan query `q`, melakukan filter `like('judul', $q)` dan menyesuaikan tampilan form di view.
+
+**Screenshot:**
+![xampp](img/search.png)
+
+### 3. Uji Coba
+- Pagination muncul saat data lebih dari 10.
+- Pencarian berhasil menampilkan data yang relevan.
+
+**Screenshot:**
+![xampp](img/hasil-cari.png)

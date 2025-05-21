@@ -44,25 +44,37 @@ class Artikel extends BaseController
 
 
 
+
     public function add()
     {
-        $validation =  \Config\Services::validation();
+        // Validasi input
+        $validation = \Config\Services::validation();
         $validation->setRules(['judul' => 'required']);
+
         $isDataValid = $validation->withRequest($this->request)->run();
 
         if ($isDataValid) {
-            $artikel = new ArtikelModel();
+            $file = $this->request->getFile('gambar');
+            if ($file && $file->isValid()) {
+                $file->move(ROOTPATH . 'public/gambar');
+            }
+
+            $artikel = new \App\Models\ArtikelModel();
             $artikel->insert([
-                'judul' => $this->request->getPost('judul'),
-                'isi' => $this->request->getPost('isi'),
-                'slug' => url_title($this->request->getPost('judul')),
+                'judul'  => $this->request->getPost('judul'),
+                'isi'    => $this->request->getPost('isi'),
+                'slug'   => url_title($this->request->getPost('judul')),
+                'gambar' => $file->getName(),
             ]);
-            return redirect()->to('/admin/artikel');
+
+            return redirect()->to('admin/artikel');
         }
 
         $title = "Tambah Artikel";
         return view('artikel/form_add', compact('title'));
     }
+
+
 
     public function edit($id)
     {

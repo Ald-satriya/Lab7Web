@@ -73,7 +73,7 @@ Penjelasan
 
 ## Praktikum 5 : Pagination dan Pencarian
 ### 1. Pagination
-Saya mengedit controller Artikel untuk menampilkan daftar artikel menggunakan paginate(10) dan menampilkan pagination links di view.
+Saya mengedit controller Artikel untuk menampilkan daftar artikel menggunakan paginate(3) dan menampilkan pagination links di view.
 **Screenshot:**
 ![xampp](img/pagination.png)
 ### 2. Pencarian
@@ -83,8 +83,19 @@ Saya menambahkan fitur pencarian dengan query `q`, melakukan filter `like('judul
 ![xampp](img/search.png)
 
 ### 3. Uji Coba
-- Pagination muncul saat data lebih dari 10.
+- Pagination muncul saat data lebih dari 3.
 - Pencarian berhasil menampilkan data yang relevan.
 
 **Screenshot:**
 ![xampp](img/hasil-cari.png)
+
+## Praktikum 6: Upload File Gambar
+- Menambahkan input file `gambar` di form `artikel/form_add.php`
+- Menyesuaikan tag `<form>` dengan `enctype="multipart/form-data"`
+- Mengupdate method `add()` pada `Artikel.php` untuk menyimpan file gambar ke folder `public/gambar`
+- Menyimpan nama file gambar ke database
+
+
+![xampp](img/Choose-File.png)
+
+![xampp](img/hasil.png)

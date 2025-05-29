@@ -89,3 +89,15 @@ Saya menambahkan fitur pencarian dengan query `q`, melakukan filter `like('judul
 **Screenshot:**
 ![xampp](img/hasil-cari.png)
 
+## Praktikum 6: Upload File Gambar
+- Menambahkan input file `gambar` di form `artikel/form_add.php`
+![xampp](img/input_file.png)
+
+- Menyesuaikan tag `<form>` dengan `enctype="multipart/form-data"`
+![xampp](img/Choose-File.png)  
+
+- Mengupdate method `add()` pada `Artikel.php` untuk menyimpan file gambar ke folder `public/gambar`
+![xampp](img/simpan_php.png)
+
+- Menyimpan nama file gambar ke database
+![xampp](img/hasil.png)

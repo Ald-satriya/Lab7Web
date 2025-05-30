@@ -115,16 +115,16 @@ Modul ini membahas cara menghubungkan tabel artikel dan kategori menggunakan rel
 
 ## Screenshots
 ### Tampilan Daftar Artikel (Admin)
-![admin_index](screenshots/admin_index.png)
+![admin_index](img/admin_index.png)
 
 ### Tambah Artikel
-![form_add](screenshots/form_add.png)
+![form_add](img/form_add.png)
 
 ### Edit Artikel
-![form_edit](screenshots/form_edit.png)
+![form_edit](img/form_edit.png)
 
 ### Tampilan Artikel di Halaman Depan
-![index](screenshots/index.png)
+![index](img/index.png)
 
 ## Langkah Pengerjaan
 1. Membuat tabel `kategori`

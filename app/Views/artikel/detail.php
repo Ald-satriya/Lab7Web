@@ -7,3 +7,4 @@
 </article>
 
 <?= $this->include('template/footer'); ?>
+<p>Kategori: <?= $artikel['nama_kategori']; ?></p>

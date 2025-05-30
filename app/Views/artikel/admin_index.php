@@ -1,13 +1,25 @@
 <?= $this->include('template/admin_header'); ?>
 
 <div class="container my-4">
-    <h1 class="mb-4">Artikel List</h1>
-
-    <!-- Search Form -->
+    <!-- Search & Filter Form -->
     <form method="get" class="form-search mb-4">
-        <div class="input-group">
-            <input type="text" name="q" value="<?= $q; ?>" placeholder="Cari data" class="form-control">
-            <button type="submit" class="btn btn-primary">Cari</button>
+        <div class="row g-2">
+            <div class="col-md-5">
+                <input type="text" name="q" value="<?= $q; ?>" placeholder="Cari data" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <select name="kategori_id" class="form-control">
+                    <option value="">Semua Kategori</option>
+                    <?php foreach ($kategori as $k): ?>
+                        <option value="<?= $k['id_kategori']; ?>" <?= ($kategori_id == $k['id_kategori']) ? 'selected' : ''; ?>>
+                            <?= $k['nama_kategori']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary w-100">Cari</button>
+            </div>
         </div>
     </form>
 
@@ -18,18 +30,20 @@
                 <tr>
                     <th>ID</th>
                     <th>Judul</th>
+                    <th>Kategori</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php if ($artikel): foreach ($artikel as $row): ?>
+                <?php if($artikel): foreach($artikel as $row): ?>
                     <tr>
                         <td><?= $row['id']; ?></td>
                         <td>
                             <b><?= $row['judul']; ?></b>
                             <p><small><?= substr($row['isi'], 0, 50); ?>...</small></p>
                         </td>
+                        <td><?= $row['nama_kategori'] ?? '-'; ?></td>
                         <td><?= $row['status']; ?></td>
                         <td>
                             <a class="btn btn-warning btn-sm" href="<?= base_url('/admin/artikel/edit/' . $row['id']); ?>">Ubah</a>
@@ -38,7 +52,7 @@
                     </tr>
                 <?php endforeach; else: ?>
                     <tr>
-                        <td colspan="4" class="text-center">Belum ada data.</td>
+                        <td colspan="5" class="text-center">Belum ada data.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -46,6 +60,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Judul</th>
+                    <th>Kategori</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -55,7 +70,7 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
-        <?= $pager->only(['q'])->links(); ?>
+        <?= $pager->only(['q', 'kategori_id'])->links(); ?>
     </div>
 </div>
 
@@ -78,16 +93,16 @@
     h1 {
         font-size: 1.75rem;
         color: #333;
-        text-align: center;
     }
 
-    .form-search input {
-        border-radius: 5px 0 0 5px;
+    .form-search input,
+    .form-search select {
+        border-radius: 5px;
         box-shadow: none;
     }
 
     .form-search button {
-        border-radius: 0 5px 5px 0;
+        border-radius: 5px;
         background-color: #2575fc;
         color: white;
     }

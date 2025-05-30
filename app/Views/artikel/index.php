@@ -8,7 +8,8 @@
                     <?= esc($row['judul']); ?>
                 </a>
             </h2>
-            
+            <p>Kategori: <?= $row['nama_kategori']; ?></p>
+
             <?php if (!empty($row['gambar'])): ?>
                 <img src="<?= base_url('/gambar/' . $row['gambar']); ?>" alt="<?= esc($row['judul']); ?>">
             <?php endif; ?>

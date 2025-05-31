@@ -135,3 +135,32 @@ Modul ini membahas cara menghubungkan tabel artikel dan kategori menggunakan rel
 6. Testing fungsi: tambah, edit, hapus, filter artikel
 
 
+# Praktikum 8 - AJAX dengan CodeIgniter 4
+
+Modul ini membahas penggunaan AJAX untuk menampilkan dan menghapus data artikel tanpa reload halaman.
+
+## 🚀 Fitur
+- Menampilkan daftar artikel menggunakan AJAX
+- Menghapus data artikel tanpa reload
+- Mengedit data artikel tanpa reload
+- Menggunakan jQuery sebagai library
+- Menambahkan data artikel tanpa reload
+
+## 📁 Struktur
+- Controller: `AjaxController`
+- View: `app/Views/ajax/index.php`
+- Model: `ArtikelModel`
+- jQuery: `public/assets/js/jquery-3.6.0.min.js`
+
+## 📸 Screenshot
+### Tabel Data Artikel
+![screenshot](img/ajax_table.png)
+
+### Tombol Delete AJAX
+![screenshot](img/delete_ajax.png)
+
+### Tombol Edit AJAX
+![screenshot](img/edit.png)
+
+### Tombol +Tambah Artikel AJAX
+![screenshot](img/+TambahArtikel.png)

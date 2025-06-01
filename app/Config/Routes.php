@@ -7,12 +7,13 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->setAutoRoute(false);
 
+// Static pages
 $routes->get('/', 'Home::index');
+$routes->get('/home', 'Home::home');
 $routes->get('/about', 'Page::about');
 $routes->get('/contact', 'Page::contact');
 $routes->get('/faqs', 'Page::faqs');
 $routes->get('/tos', 'Page::tos');
-$routes->get('/home', 'Home::home');
 
 // Artikel routes
 $routes->get('/artikel', 'Artikel::index');
@@ -25,16 +26,20 @@ $routes->group('admin', function($routes) {
     $routes->get('artikel/delete/(:any)', 'Artikel::delete/$1');
 });
 
+// User routes
 $routes->get('/user/login', 'User::login');
 $routes->post('/user/login', 'User::login');
 $routes->get('/user/logout', 'User::logout');
 
+// Admin artikel dengan filter login
 $routes->get('/admin/artikel', 'Admin\Artikel::index', ['filter' => 'auth']);
 
-// AJAX routes
-$routes->get('/ajax', 'AjaxController::index');
-$routes->get('/ajax/getData', 'AjaxController::getData');
-$routes->get('/ajax/edit/(:num)', 'AjaxController::edit/$1');
-$routes->post('/ajax/save', 'AjaxController::save');
-$routes->post('/ajax/update/(:num)', 'AjaxController::update/$1');
-$routes->delete('/ajax/delete/(:num)', 'AjaxController::delete/$1');
+// ✅ Final: AJAX routes (rapi & konsisten)
+$routes->group('ajax', function($routes) {
+    $routes->get('/', 'AjaxController::index');
+    $routes->get('get', 'AjaxController::getPaginatedData');
+    $routes->post('save', 'AjaxController::save');
+    $routes->get('edit/(:num)', 'AjaxController::edit/$1');
+    $routes->post('update/(:num)', 'AjaxController::update/$1');
+    $routes->delete('delete/(:num)', 'AjaxController::delete/$1');
+});

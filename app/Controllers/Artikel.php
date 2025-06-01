@@ -12,7 +12,7 @@ class Artikel extends BaseController
     {
         $title = 'Daftar Artikel';
         $model = new ArtikelModel();
-        $artikel = $model->getArtikelDenganKategori(); // pakai join kategori
+        $artikel = $model->getArtikelDenganKategori(); // Join kategori
 
         return view('artikel/index', compact('artikel', 'title'));
     }
@@ -36,33 +36,41 @@ class Artikel extends BaseController
 
     public function admin_index()
     {
-        $title = 'Daftar Artikel (Admin)';
         $q = $this->request->getVar('q') ?? '';
         $kategori_id = $this->request->getVar('kategori_id') ?? '';
+        $page = $this->request->getVar('page') ?? 1;
 
         $model = new ArtikelModel();
         $builder = $model->table('artikel')
             ->select('artikel.*, kategori.nama_kategori')
-            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left'); // <-- LEFT JOIN
+            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
 
-        if ($q !== '') {
+        if (!empty($q)) {
             $builder->like('artikel.judul', $q);
         }
 
-        if ($kategori_id !== '') {
+        if (!empty($kategori_id)) {
             $builder->where('artikel.id_kategori', $kategori_id);
         }
 
-        $data['title'] = $title;
-        $data['q'] = $q;
-        $data['kategori_id'] = $kategori_id;
-        $data['artikel'] = $builder->paginate(10);
-        $data['pager'] = $model->pager;
+        $artikel = $builder->paginate(10, 'default', $page);
+        $pager = $model->pager;
 
+        // Untuk request AJAX, kirimkan JSON
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON([
+                'artikel' => $artikel,
+                'pager' => [
+                    'links' => $pager->links('default')
+                ],
+            ]);
+        }
+
+        // Request biasa: render view dengan dropdown kategori saja
         $kategoriModel = new KategoriModel();
-        $data['kategori'] = $kategoriModel->findAll();
-
-        return view('artikel/admin_index', $data);
+        return view('artikel/admin_index', [
+            'kategori' => $kategoriModel->findAll()
+        ]);
     }
 
     public function add()
@@ -73,9 +81,7 @@ class Artikel extends BaseController
             'id_kategori' => 'required|integer'
         ]);
 
-        $isDataValid = $validation->withRequest($this->request)->run();
-
-        if ($isDataValid) {
+        if ($validation->withRequest($this->request)->run()) {
             $file = $this->request->getFile('gambar');
             $namaGambar = null;
 
@@ -91,16 +97,17 @@ class Artikel extends BaseController
                 'slug' => url_title($this->request->getPost('judul')),
                 'id_kategori' => $this->request->getPost('id_kategori'),
                 'gambar' => $namaGambar,
+                'status' => 1
             ]);
 
             return redirect()->to('/admin/artikel');
         }
 
         $kategoriModel = new KategoriModel();
-        $data['kategori'] = $kategoriModel->findAll();
-        $data['title'] = "Tambah Artikel";
-
-        return view('artikel/form_add', $data);
+        return view('artikel/form_add', [
+            'title' => 'Tambah Artikel',
+            'kategori' => $kategoriModel->findAll()
+        ]);
     }
 
     public function edit($id)
@@ -112,9 +119,7 @@ class Artikel extends BaseController
             'id_kategori' => 'required|integer'
         ]);
 
-        $isDataValid = $validation->withRequest($this->request)->run();
-
-        if ($isDataValid) {
+        if ($validation->withRequest($this->request)->run()) {
             $artikel->update($id, [
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
@@ -125,8 +130,8 @@ class Artikel extends BaseController
         }
 
         $data['artikel'] = $artikel->find($id);
-
         $kategoriModel = new KategoriModel();
+
         $data['kategori'] = $kategoriModel->findAll();
         $data['title'] = "Edit Artikel";
 

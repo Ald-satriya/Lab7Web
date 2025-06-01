@@ -9,29 +9,31 @@ class AjaxController extends Controller
 {
     protected $helpers = ['form', 'url'];
 
-    // Halaman utama AJAX
     public function index()
     {
         $data = ['title' => 'Data Artikel'];
         return view('ajax/index', $data);
     }
 
-    // Ambil semua data artikel (JSON)
-    public function getData()
+    public function getPaginatedData()
     {
         $model = new ArtikelModel();
-        $data = $model->findAll();
+        $perPage = 5;
 
-        return $this->response->setJSON($data);
+        $data = [
+            'artikel' => $model->getArtikelDenganKategoriPaginated($perPage, 'artikel'),
+            'pager'   => $model->pager
+        ];
+
+        return view('ajax/data', $data);
     }
 
-    // Tambah artikel baru (POST)
     public function save()
     {
         $judul = $this->request->getPost('judul');
         $isi   = $this->request->getPost('isi');
 
-        if (empty($judul) || empty($isi)) {
+        if (!$judul || !$isi) {
             return $this->response->setJSON([
                 'status' => 'ERROR',
                 'message' => 'Judul dan isi tidak boleh kosong.'
@@ -42,24 +44,23 @@ class AjaxController extends Controller
         $data = [
             'judul'  => $judul,
             'isi'    => $isi,
-            'slug'   => url_title($judul, '-', true), // Buat slug dari judul
-            'status' => 1 // Default: Published
+            'slug'   => url_title($judul, '-', true),
+            'status' => 1
         ];
 
         if ($model->insert($data)) {
             return $this->response->setJSON([
                 'status' => 'OK',
-                'message' => 'Data berhasil ditambahkan'
+                'message' => 'Data berhasil ditambahkan.'
             ]);
         }
 
         return $this->response->setJSON([
             'status' => 'ERROR',
-            'message' => 'Gagal menambahkan data'
+            'message' => 'Gagal menambahkan data.'
         ]);
     }
 
-    // Ambil satu data artikel berdasarkan ID (GET)
     public function edit($id)
     {
         $model = new ArtikelModel();
@@ -71,17 +72,16 @@ class AjaxController extends Controller
 
         return $this->response->setJSON([
             'status' => 'ERROR',
-            'message' => 'Data tidak ditemukan'
+            'message' => 'Data tidak ditemukan.'
         ]);
     }
 
-    // Update artikel berdasarkan ID (POST)
     public function update($id)
     {
         $judul = $this->request->getPost('judul');
         $isi   = $this->request->getPost('isi');
 
-        if (empty($judul) || empty($isi)) {
+        if (!$judul || !$isi) {
             return $this->response->setJSON([
                 'status' => 'ERROR',
                 'message' => 'Judul dan isi tidak boleh kosong.'
@@ -92,23 +92,22 @@ class AjaxController extends Controller
         $data = [
             'judul' => $judul,
             'isi'   => $isi,
-            'slug'  => url_title($judul, '-', true) // Update slug saat judul diubah
+            'slug'  => url_title($judul, '-', true)
         ];
 
         if ($model->update($id, $data)) {
             return $this->response->setJSON([
                 'status' => 'OK',
-                'message' => 'Data berhasil diupdate'
+                'message' => 'Data berhasil diupdate.'
             ]);
         }
 
         return $this->response->setJSON([
             'status' => 'ERROR',
-            'message' => 'Gagal mengupdate data'
+            'message' => 'Gagal mengupdate data.'
         ]);
     }
 
-    // Hapus artikel berdasarkan ID (DELETE)
     public function delete($id)
     {
         $model = new ArtikelModel();
@@ -116,13 +115,13 @@ class AjaxController extends Controller
         if ($model->delete($id)) {
             return $this->response->setJSON([
                 'status' => 'OK',
-                'message' => 'Data berhasil dihapus'
+                'message' => 'Data berhasil dihapus.'
             ]);
         }
 
         return $this->response->setJSON([
             'status' => 'ERROR',
-            'message' => 'Gagal menghapus data'
+            'message' => 'Gagal menghapus data.'
         ]);
     }
 }

@@ -12,6 +12,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Judul</th>
+                    <th>Kategori</th>
                     <th>Status</th>
                     <th>Aksi</th>
                 </tr>
@@ -19,6 +20,9 @@
             <tbody></tbody>
         </table>
     </div>
+
+    <!-- Pagination akan dimasukkan di sini -->
+    <div id="pagination" class="d-flex justify-content-center mt-3"></div>
 </div>
 
 <!-- Modal Tambah -->
@@ -76,47 +80,30 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-$(document).ready(function() {
-    function loadData() {
-        $('#artikelTable tbody').html('<tr><td colspan="4" class="text-center">Memuat data...</td></tr>');
-
-        $.ajax({
-            url: "<?= base_url('ajax/getData') ?>",
-            method: "GET",
-            dataType: "json",
-            success: function(data) {
-                let html = '';
-                data.forEach(function(row) {
-                    html += `<tr>
-                        <td class="text-center">${row.id}</td>
-                        <td>${row.judul}</td>
-                        <td class="text-center">
-                            <span class="badge bg-${row.status == "1" ? "success" : "secondary"}">
-                                ${row.status == "1" ? "Published" : "Draft"}
-                            </span>
-                        </td>
-                        <td class="text-center">
-                            <button class="btn btn-sm btn-outline-primary btn-edit" data-id="${row.id}">Edit</button>
-                            <button class="btn btn-sm btn-outline-danger btn-delete" data-id="${row.id}">Delete</button>
-                        </td>
-                    </tr>`;
-                });
-                $('#artikelTable tbody').html(html);
-            },
-            error: function() {
-                $('#artikelTable tbody').html('<tr><td colspan="4" class="text-center text-danger">Gagal memuat data.</td></tr>');
-            }
+$(document).ready(function () {
+    function loadData(page = 1) {
+        $.get("<?= base_url('ajax/get') ?>", { page }, function (html) {
+            $('#artikelTable tbody').remove(); // hapus tbody lama
+            $('#artikelTable').append($(html).find('tbody')); // tambah tbody baru
+            $('#pagination').html($(html).find('#pagination').html()); // replace pagination
         });
     }
 
-    loadData();
+    loadData(); // initial load
+
+    // 🔧 Perbaikan klik pagination — gunakan class Bootstrap `.page-link`
+    $(document).on('click', '#pagination .page-link', function (e) {
+        e.preventDefault();
+        const page = $(this).attr('href').split('page=')[1];
+        loadData(page);
+    });
 
     // Tambah Artikel
-    $('#formTambah').submit(function(e) {
+    $('#formTambah').submit(function (e) {
         e.preventDefault();
-        $.post("<?= base_url('ajax/save') ?>", $(this).serialize(), function(res) {
+        $.post("<?= base_url('ajax/save') ?>", $(this).serialize(), function (res) {
             if (res.status === 'OK') {
-                $('#modalTambah').modal('hide');
+                bootstrap.Modal.getInstance(document.getElementById('modalTambah')).hide();
                 $('#formTambah')[0].reset();
                 loadData();
             } else {
@@ -125,29 +112,24 @@ $(document).ready(function() {
         }, 'json');
     });
 
-    // Edit: buka modal dan isi data
-    $(document).on('click', '.btn-edit', function() {
+    // Edit Artikel
+    $(document).on('click', '.btn-edit', function () {
         const id = $(this).data('id');
-        $.get("<?= base_url('ajax/edit/') ?>" + id, function(data) {
-            if (data && data.id) {
-                $('#edit-id').val(data.id);
-                $('#edit-judul').val(data.judul);
-                $('#edit-isi').val(data.isi);
-                $('#modalEdit').modal('show');
-            } else {
-                alert('Data tidak ditemukan.');
-            }
+        $.get("<?= base_url('ajax/edit/') ?>" + id, function (data) {
+            $('#edit-id').val(data.id);
+            $('#edit-judul').val(data.judul);
+            $('#edit-isi').val(data.isi);
+            new bootstrap.Modal(document.getElementById('modalEdit')).show();
         }, 'json');
     });
 
     // Submit Edit
-    $('#formEdit').submit(function(e) {
+    $('#formEdit').submit(function (e) {
         e.preventDefault();
         const id = $('#edit-id').val();
-        $.post("<?= base_url('ajax/update/') ?>" + id, $(this).serialize(), function(res) {
+        $.post("<?= base_url('ajax/update/') ?>" + id, $(this).serialize(), function (res) {
             if (res.status === 'OK') {
-                $('#modalEdit').modal('hide');
-                $('#formEdit')[0].reset();
+                bootstrap.Modal.getInstance(document.getElementById('modalEdit')).hide();
                 loadData();
             } else {
                 alert(res.message);
@@ -156,18 +138,15 @@ $(document).ready(function() {
     });
 
     // Hapus Artikel
-    $(document).on('click', '.btn-delete', function(e) {
-        e.preventDefault();
+    $(document).on('click', '.btn-delete', function () {
         const id = $(this).data('id');
         if (confirm('Yakin ingin menghapus artikel ini?')) {
             $.ajax({
                 url: "<?= base_url('ajax/delete/') ?>" + id,
-                method: "DELETE",
-                success: function() {
-                    loadData();
-                },
-                error: function() {
-                    alert('Gagal menghapus data.');
+                type: "DELETE",
+                success: function (res) {
+                    if (res.status === 'OK') loadData();
+                    else alert(res.message);
                 }
             });
         }

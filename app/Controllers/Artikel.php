@@ -8,15 +8,22 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Artikel extends BaseController
 {
+    // Pastikan helpers 'form', 'url', dan 'text' dimuat
+    // 'text' diperlukan untuk url_title()
+    protected $helpers = ['form', 'url', 'text'];
+
+    // Method default untuk halaman artikel frontend (jika ada)
     public function index()
     {
         $title = 'Daftar Artikel';
         $model = new ArtikelModel();
-        $artikel = $model->getArtikelDenganKategori(); // Join kategori
+        // Method ini tidak menggunakan pagination, hanya ambil semua data
+        $artikel = $model->getArtikelDenganKategori();
 
         return view('artikel/index', compact('artikel', 'title'));
     }
 
+    // Method untuk menampilkan detail artikel frontend
     public function view($slug)
     {
         $model = new ArtikelModel();
@@ -34,58 +41,83 @@ class Artikel extends BaseController
         return view('artikel/detail', compact('artikel', 'title'));
     }
 
+    /**
+     * Method ini menangani halaman admin artikel, termasuk pagination dan filter.
+     * Dipanggil oleh rute 'admin/artikel' di grup 'admin'.
+     */
     public function admin_index()
     {
+        // Ambil parameter pencarian ('q') dan filter kategori ('kategori_id') dari URL
         $q = $this->request->getVar('q') ?? '';
         $kategori_id = $this->request->getVar('kategori_id') ?? '';
-        $page = $this->request->getVar('page') ?? 1;
 
-        $model = new ArtikelModel();
-        $builder = $model->table('artikel')
-            ->select('artikel.*, kategori.nama_kategori')
-            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
+        // Model untuk artikel dan kategori
+        $artikelModel = new ArtikelModel();
+        $kategoriModel = new KategoriModel();
 
+        // Inisialisasi query builder untuk artikel dengan join ke kategori
+        $builder = $artikelModel->select('artikel.*, kategori.nama_kategori')
+                                ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
+
+        // Terapkan filter pencarian judul jika 'q' tidak kosong
         if (!empty($q)) {
             $builder->like('artikel.judul', $q);
         }
 
+        // Terapkan filter kategori jika 'kategori_id' tidak kosong
         if (!empty($kategori_id)) {
             $builder->where('artikel.id_kategori', $kategori_id);
         }
 
-        $artikel = $builder->paginate(10, 'default', $page);
-        $pager = $model->pager;
+        // --- PERBAIKAN: ORDER BY dan Jumlah Data Per Halaman ---
+        // Penting: Urutkan hasil untuk konsistensi pagination
+        $builder->orderBy('artikel.id', 'ASC'); // Mengurutkan dari artikel terbaru
 
-        // Untuk request AJAX, kirimkan JSON
+        // Atur jumlah item per halaman menjadi 5
+        $perPage = 5;
+
+        // Dapatkan data artikel yang sudah dipaginasi
+        // Parameter 'default' adalah nama grup pagination (sesuaikan jika perlu)
+        $artikel = $builder->paginate($perPage, 'default');
+        $pager = $artikelModel->pager; // Dapatkan objek pager dari model
+
+        // Jika ini adalah permintaan AJAX, kembalikan JSON (seperti di AjaxController::get())
+        // Meskipun untuk /admin/artikel kita tidak menggunakan AJAX untuk pagination
+        // blok ini bisa berguna jika Anda ingin menambahkan fitur AJAX di masa depan
         if ($this->request->isAJAX()) {
             return $this->response->setJSON([
                 'artikel' => $artikel,
                 'pager' => [
                     'links' => $pager->links('default')
-                ],
+                ]
             ]);
         }
 
-        // Request biasa: render view dengan dropdown kategori saja
-        $kategoriModel = new KategoriModel();
+        // Jika bukan permintaan AJAX, tampilkan view HTML penuh
         return view('artikel/admin_index', [
-            'kategori' => $kategoriModel->findAll()
+            'artikel' => $artikel,
+            'pager' => $pager,
+            'q' => $q, // Untuk mengisi kembali nilai pencarian di form
+            'kategori_id' => $kategori_id, // Untuk membuat opsi kategori terpilih di dropdown
+            'kategori' => $kategoriModel->findAll(), // Daftar semua kategori untuk dropdown
+            'title' => 'Manajemen Artikel'
         ]);
     }
 
+    // Method untuk menambahkan artikel baru
     public function add()
     {
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul' => 'required',
+            'judul' => 'required|min_length[3]',
             'id_kategori' => 'required|integer'
         ]);
 
-        if ($validation->withRequest($this->request)->run()) {
+        if ($this->request->getMethod() === 'post' && $validation->withRequest($this->request)->run()) {
             $file = $this->request->getFile('gambar');
             $namaGambar = null;
 
-            if ($file && $file->isValid()) {
+            if ($file && $file->isValid() && !$file->hasMoved()) {
                 $file->move(ROOTPATH . 'public/gambar');
                 $namaGambar = $file->getName();
             }
@@ -94,54 +126,71 @@ class Artikel extends BaseController
             $artikel->insert([
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
-                'slug' => url_title($this->request->getPost('judul')),
+                'slug' => url_title($this->request->getPost('judul'), '-', true),
                 'id_kategori' => $this->request->getPost('id_kategori'),
                 'gambar' => $namaGambar,
-                'status' => 1
+                'status' => 1 // Misal: 1 untuk published
             ]);
 
-            return redirect()->to('/admin/artikel');
+            return redirect()->to('/admin/artikel')->with('success', 'Artikel berhasil ditambahkan.');
         }
 
         $kategoriModel = new KategoriModel();
         return view('artikel/form_add', [
             'title' => 'Tambah Artikel',
-            'kategori' => $kategoriModel->findAll()
+            'kategori' => $kategoriModel->findAll(),
+            'validation' => $validation
         ]);
     }
 
-    public function edit($id)
+    // Method untuk mengedit artikel
+    public function edit($id = null)
     {
-        $artikel = new ArtikelModel();
+        $artikelModel = new ArtikelModel();
+        $artikelData = $artikelModel->find($id);
+
+        if (!$artikelData) {
+            throw PageNotFoundException::forPageNotFound('Artikel dengan ID: ' . $id . ' tidak ditemukan.');
+        }
+
         $validation = \Config\Services::validation();
         $validation->setRules([
-            'judul' => 'required',
+            'judul' => 'required|min_length[3]',
             'id_kategori' => 'required|integer'
         ]);
 
-        if ($validation->withRequest($this->request)->run()) {
-            $artikel->update($id, [
+        if ($this->request->getMethod() === 'post' && $validation->withRequest($this->request)->run()) {
+            $data = [
                 'judul' => $this->request->getPost('judul'),
                 'isi' => $this->request->getPost('isi'),
                 'id_kategori' => $this->request->getPost('id_kategori'),
-            ]);
+                'slug' => url_title($this->request->getPost('judul'), '-', true), // Perbarui slug juga
+            ];
+            // Tambahkan logika untuk gambar jika ada perubahan
+            // $file = $this->request->getFile('gambar');
+            // if ($file && $file->isValid() && !$file->hasMoved()) { ... }
 
-            return redirect()->to('/admin/artikel');
+            $artikelModel->update($id, $data);
+            return redirect()->to('/admin/artikel')->with('success', 'Artikel berhasil diupdate.');
         }
 
-        $data['artikel'] = $artikel->find($id);
         $kategoriModel = new KategoriModel();
-
-        $data['kategori'] = $kategoriModel->findAll();
-        $data['title'] = "Edit Artikel";
-
-        return view('artikel/form_edit', $data);
+        return view('artikel/form_edit', [
+            'title' => 'Edit Artikel',
+            'artikel' => $artikelData,
+            'kategori' => $kategoriModel->findAll(),
+            'validation' => $validation
+        ]);
     }
 
-    public function delete($id)
+    // Method untuk menghapus artikel
+    public function delete($id = null)
     {
         $artikel = new ArtikelModel();
-        $artikel->delete($id);
-        return redirect()->to('/admin/artikel');
+        if ($artikel->delete($id)) {
+            return redirect()->to('/admin/artikel')->with('success', 'Artikel berhasil dihapus.');
+        } else {
+            return redirect()->to('/admin/artikel')->with('error', 'Gagal menghapus artikel.');
+        }
     }
 }

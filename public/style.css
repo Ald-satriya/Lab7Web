@@ -4,19 +4,22 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Open Sans', sans-serif;
-    line-height: 1;
+    line-height: 1.6;
     font-size: 100%;
     color: #5a5a5a;
+    background-color: #f5f6f7;
 }
 
 #container {
     width: 980px;
     margin: 0 auto;
     box-shadow: 0 0 1em #cccccc;
+    background-color: #fff;
 }
 
 /* Header */
@@ -88,6 +91,8 @@ nav a.active, nav a:hover {
 }
 .widget-box ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 .widget-box li {
     border-bottom: 1px solid #eee;
@@ -172,4 +177,34 @@ footer {
 }
 .entry .right-img {
     float: right;
+}
+
+/* ✅ Pagination Styling (Bootstrap) */
+.pagination {
+    gap: 0.25rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.page-item .page-link {
+    border-radius: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    font-weight: 500;
+    color: #0d6efd;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+}
+
+.page-item.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    background-color: #f8f9fa;
 }

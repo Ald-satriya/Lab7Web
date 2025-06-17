@@ -46,12 +46,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+<<<<<<< HEAD
     /**
      * Mengambil dan menampilkan data artikel via AJAX.
      * @param {string} url URL untuk permintaan AJAX (misal: '/admin/artikel' atau '/admin/artikel?page=2')
      */
     function fetchData(url) {
         // Sembunyikan konten dan tampilkan spinner loading
+=======
+    function fetchData(url = '/admin/artikel') {
+        const q = $('#search-box').val();
+        const kategori_id = $('#kategori-filter').val();
+
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
         $('#article-container').hide();
         $('#pagination-container').hide();
         $('#loading-spinner').show();
@@ -80,6 +87,7 @@ $(document).ready(function() {
         $.ajax({
             url: urlObj.toString(), // Gunakan URL yang sudah diperbarui dengan parameter filter
             type: 'GET',
+<<<<<<< HEAD
             dataType: 'json', // Harap respons dari server adalah JSON
             headers: { 'X-Requested-With': 'XMLHttpRequest' }, // Header ini menandakan permintaan AJAX ke CodeIgniter
             success: function(response) {
@@ -98,6 +106,21 @@ $(document).ready(function() {
             error: function(xhr, status, error) {
                 console.error("AJAX Error:", status, error, xhr.responseText);
                 $('#article-container').html('<p class="text-danger text-center">Gagal memuat data. Silakan coba lagi.</p>');
+=======
+            dataType: 'json',
+            data: {
+                q: q,
+                kategori_id: kategori_id
+            },
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            success: function(data) {
+                renderArticles(data.artikel);
+                $('#pagination-container').html(data.pager.links);
+            },
+            error: function(xhr) {
+                console.error(xhr.responseText);
+                $('#article-container').html('<p class="text-danger text-center">Gagal memuat data.</p>');
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
             },
             complete: function() {
                 $('#loading-spinner').hide();
@@ -144,8 +167,13 @@ $(document).ready(function() {
 
     // 1. Ketika form pencarian/filter di-submit
     $('#search-form').on('submit', function(e) {
+<<<<<<< HEAD
         e.preventDefault(); 
         fetchData('<?= base_url('admin/artikel') ?>'); // Panggil fetchData untuk memuat ulang data dengan filter
+=======
+        e.preventDefault();
+        fetchData();
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
     });
 
     // 2. Ketika filter kategori diubah (change event)
@@ -153,6 +181,7 @@ $(document).ready(function() {
         $('#search-form').trigger('submit'); // Trigger submit form untuk memanggil fetchData
     });
 
+<<<<<<< HEAD
     // 3. Ketika tautan pagination diklik (Delegasi event karena tautan dimuat dinamis)
     $(document).on('click', '#pagination-container .page-link', function(e) {
         e.preventDefault(); 
@@ -163,6 +192,15 @@ $(document).ready(function() {
 
     // --- Load Data Pertama Kali ---
     fetchData('<?= base_url('admin/artikel') ?>');
+=======
+    $(document).on('click', '.pagination a', function(e) {
+        e.preventDefault();
+        const url = $(this).attr('href');
+        if (url) fetchData(url);
+    });
+
+    fetchData();
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
 });
 </script>
 

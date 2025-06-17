@@ -57,7 +57,15 @@ $routes->group('ajax', function($routes) {
     $routes->delete('delete/(:num)', 'AjaxController::delete/$1'); // Hapus
 });
 
+<<<<<<< HEAD
 // ===============================
 // 🔁 RESTful API Resource (Contoh)
 // ===============================
 $routes->resource('post'); // Hanya jika kamu memang buat controller Post.php sebagai REST API
+=======
+$routes->get('/api/post', 'Artikel::postApi');
+
+$routes->resource('post', ['controller' => 'PostApi']);
+$routes->options('post', 'PostApi::options');
+$routes->options('post/(:any)', 'PostApi::options');
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)

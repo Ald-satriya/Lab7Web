@@ -1,0 +1,234 @@
+CRITICAL - 2025-06-14 11:03:39 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:04:04 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:04:50 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:05:03 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:05:52 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:05:53 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:05:55 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:36:56 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:45:46 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:47:03 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 11:59:46 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:00:13 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:01:43 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:12:58 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:21:36 --> CodeIgniter\HTTP\Exceptions\BadRequestException: The URI you submitted has disallowed characters: "api)"
+[Method: GET, Route: api%29]
+in SYSTEMPATH\Router\Router.php on line 739.
+ 1 SYSTEMPATH\Router\Router.php(207): CodeIgniter\Router\Router->checkDisallowedChars('api)')
+ 2 SYSTEMPATH\CodeIgniter.php(832): CodeIgniter\Router\Router->handle('api)')
+ 3 SYSTEMPATH\CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 4 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 7 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 8 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:22:26 --> ErrorException: Undefined property: Config\Cors::$default
+[Method: GET, Route: api/post]
+in SYSTEMPATH\HTTP\Cors.php on line 72.
+ 1 SYSTEMPATH\HTTP\Cors.php(72): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: Config\\Cors::$default', 'C:\\xampp\\htdocs\\Lab7Web\\system\\HTTP\\Cors.php', 72)
+ 2 SYSTEMPATH\Filters\Cors.php(84): CodeIgniter\HTTP\Cors::factory()
+ 3 SYSTEMPATH\Filters\Cors.php(59): CodeIgniter\Filters\Cors->createCorsService(null)
+ 4 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\Cors->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 5 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 6 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('api/post', 'before')
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+11 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')
+CRITICAL - 2025-06-14 12:36:26 --> CodeIgniter\Security\Exceptions\SecurityException: The action you requested is not allowed.
+[Method: POST, Route: admin/artikel/add]
+in SYSTEMPATH\Security\Security.php on line 262.
+ 1 SYSTEMPATH\Security\Security.php(262): CodeIgniter\Security\Exceptions\SecurityException::forDisallowedAction()
+ 2 SYSTEMPATH\Filters\CSRF.php(52): CodeIgniter\Security\Security->verify(Object(CodeIgniter\HTTP\IncomingRequest))
+ 3 SYSTEMPATH\Filters\Filters.php(241): CodeIgniter\Filters\CSRF->before(Object(CodeIgniter\HTTP\IncomingRequest), null)
+ 4 SYSTEMPATH\Filters\Filters.php(221): CodeIgniter\Filters\Filters->runBefore([...])
+ 5 SYSTEMPATH\CodeIgniter.php(479): CodeIgniter\Filters\Filters->run('admin/artikel/add', 'before')
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Lab7Web\\public\\index.php')

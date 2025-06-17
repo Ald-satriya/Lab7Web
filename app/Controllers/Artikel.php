@@ -8,6 +8,7 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Artikel extends BaseController
 {
+<<<<<<< HEAD
     // Pastikan helpers 'form', 'url', dan 'text' dimuat
     // 'text' diperlukan untuk url_title()
     protected $helpers = ['form', 'url', 'text'];
@@ -45,15 +46,26 @@ class Artikel extends BaseController
      * Method ini menangani halaman admin artikel, termasuk pagination dan filter.
      * Dipanggil oleh rute 'admin/artikel' di grup 'admin'.
      */
+=======
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
     public function admin_index()
     {
         // Ambil parameter pencarian ('q') dan filter kategori ('kategori_id') dari URL
         $q = $this->request->getVar('q') ?? '';
         $kategori_id = $this->request->getVar('kategori_id') ?? '';
+<<<<<<< HEAD
 
         // Model untuk artikel dan kategori
         $artikelModel = new ArtikelModel();
         $kategoriModel = new KategoriModel();
+=======
+        $page = (int) ($this->request->getVar('page') ?? 1);
+
+        $model = new ArtikelModel();
+
+        $builder = $model->select('artikel.*, kategori.nama_kategori')
+            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
 
         // Inisialisasi query builder untuk artikel dengan join ke kategori
         $builder = $artikelModel->select('artikel.*, kategori.nama_kategori')
@@ -73,6 +85,7 @@ class Artikel extends BaseController
         // Penting: Urutkan hasil untuk konsistensi pagination
         $builder->orderBy('artikel.id', 'ASC'); // Mengurutkan dari artikel terbaru
 
+<<<<<<< HEAD
         // Atur jumlah item per halaman menjadi 5
         $perPage = 5;
 
@@ -84,10 +97,13 @@ class Artikel extends BaseController
         // Jika ini adalah permintaan AJAX, kembalikan JSON (seperti di AjaxController::get())
         // Meskipun untuk /admin/artikel kita tidak menggunakan AJAX untuk pagination
         // blok ini bisa berguna jika Anda ingin menambahkan fitur AJAX di masa depan
+=======
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
         if ($this->request->isAJAX()) {
             return $this->response->setJSON([
                 'artikel' => $artikel,
                 'pager' => [
+<<<<<<< HEAD
                     'links' => $pager->links('default')
                 ]
             ]);
@@ -105,6 +121,45 @@ class Artikel extends BaseController
     }
 
     // Method untuk menambahkan artikel baru
+=======
+                    'links' => $pager->links('default'),
+                ],
+            ]);
+        }
+
+        $kategoriModel = new KategoriModel();
+        return view('artikel/admin_index', [
+            'kategori' => $kategoriModel->findAll(),
+        ]);
+    }
+
+    public function index()
+    {
+        $title = 'Daftar Artikel';
+        $model = new ArtikelModel();
+        $artikel = $model->getArtikelDenganKategori();
+
+        return view('artikel/index', compact('artikel', 'title'));
+    }
+
+    public function view($slug)
+    {
+        $model = new ArtikelModel();
+        $artikel = $model->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
+            ->select('artikel.*, kategori.nama_kategori')
+            ->where('slug', $slug)
+            ->get()
+            ->getRowArray();
+
+        if (!$artikel) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        $title = $artikel['judul'];
+        return view('artikel/detail', compact('artikel', 'title'));
+    }
+
+>>>>>>> 0e864c0 (Praktikum 10 : Update API with Improvisasi)
     public function add()
     {
         $validation = \Config\Services::validation();

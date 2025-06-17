@@ -229,3 +229,155 @@ Modul ini membahas penggunaan AJAX untuk menampilkan dan menghapus data artikel 
 | 4️⃣ | Pagination AJAX berhasil | Klik halaman 2, data berubah tanpa reload |
 ![screenshot](img/pagination_klik.png)
 ---
+
+# Praktikum 10 - Membuat REST API dengan CodeIgniter 4
+
+Modul ini membahas bagaimana membuat RESTful API menggunakan CodeIgniter 4. Fokus utama adalah mengakses data artikel menggunakan metode HTTP seperti GET, POST, PUT, dan DELETE.
+
+## 🚀 Fitur API
+
+Menampilkan seluruh data artikel (GET /post)
+
+Menampilkan artikel berdasarkan ID (GET /post/{id})
+
+Menambahkan artikel baru (POST /post)
+
+Mengubah data artikel (PUT /post/{id})
+
+Menghapus artikel (DELETE /post/{id})
+
+## 📁 Struktur Folder
+
+app/
+├── Controllers/
+│   └── Post.php
+├── Models/
+│   └── PostModel.php
+├── Config/
+│   └── Routes.php
+
+## ⚙️ Konfigurasi
+### 1. Database
+Pastikan tabel post di database memiliki kolom berikut:
+CREATE TABLE `post` (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `judul` VARCHAR(255),
+  `isi` TEXT,
+  `slug` VARCHAR(255),
+  `status` TINYINT(1),
+  `gambar` VARCHAR(255),
+  `id_kategori` INT,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+### 2. Routing
+Tambahkan ke app/Config/Routes.php:
+$routes->resource('post');
+
+### 3. PostModel (app/Models/PostModel.php)
+namespace App\Models;
+
+use CodeIgniter\Model;
+
+class PostModel extends Model
+{
+    protected $table = 'post';
+    protected $primaryKey = 'id';
+    protected $allowedFields = ['judul', 'isi', 'slug', 'status', 'gambar', 'id_kategori'];
+    protected $useTimestamps = true;
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'updated_at';
+    protected $returnType = 'array';
+}
+
+### 4. Post Controller (app/Controllers/Post.php)
+namespace App\Controllers;
+
+use CodeIgniter\RESTful\ResourceController;
+use App\Models\PostModel;
+
+class Post extends ResourceController
+{
+    protected $model;
+
+    public function __construct()
+    {
+        $this->model = new PostModel();
+    }
+
+    public function index()
+    {
+        return $this->respond(['status' => 200, 'data' => $this->model->findAll()]);
+    }
+
+    public function create()
+    {
+        $data = $this->request->getPost() ?: $this->request->getJSON(true);
+
+        if (!isset($data['judul']) || !isset($data['isi'])) {
+            return $this->failValidationErrors('Judul dan isi wajib diisi.');
+        }
+
+        $data['slug'] = url_title($data['judul'], '-', true);
+        $this->model->insert($data);
+
+        return $this->respondCreated(['status' => 201, 'messages' => ['success' => 'Artikel ditambahkan.']]);
+    }
+
+    public function show($id = null)
+    {
+        $data = $this->model->find($id);
+        return $data ? $this->respond($data) : $this->failNotFound('Data tidak ditemukan.');
+    }
+
+    public function update($id = null)
+    {
+        if (!$this->model->find($id)) return $this->failNotFound('Data tidak ditemukan.');
+
+        $data = $this->request->getRawInput();
+        if (!isset($data['judul']) || !isset($data['isi'])) {
+            return $this->failValidationErrors('Judul dan isi wajib diisi.');
+        }
+
+        $data['slug'] = url_title($data['judul'], '-', true);
+        $this->model->update($id, $data);
+
+        return $this->respond(['status' => 200, 'messages' => ['success' => 'Artikel berhasil diupdate.']]);
+    }
+
+    public function delete($id = null)
+    {
+        if (!$this->model->find($id)) return $this->failNotFound('Data tidak ditemukan.');
+
+        $this->model->delete($id);
+        return $this->respondDeleted(['status' => 200, 'messages' => ['success' => 'Artikel berhasil dihapus.']]);
+    }
+}
+
+## 🔧 Pengujian API
+Gunakan Postman atau REST client lainnya.
+
+GET http://localhost:8080/post
+![screenshot](img/get_data.png)
+
+GET http://localhost:8080/post/{id}
+![screenshot](img/get1.png)
+
+POST http://localhost:8080/post (form-data: judul, isi)
+![screenshot](img/post.png)
+
+POST http://localhost:8080/post (form-data: judul, isi)
+![screenshot](img/input.png)
+
+PUT http://localhost:8080/post/{id} (raw/json: judul, isi)
+![screenshot](img/put.png)
+
+DELETE http://localhost:8080/post/{id}
+![screenshot](img/delete_posman.png)
+
+AjaxController.php
+ArtikelModel.php
+Views/ajax/index.php
+iews/ajax/artikel_list.php
+app/Views/pagers/bootstrap.php

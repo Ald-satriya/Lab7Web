@@ -8,41 +8,15 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Artikel extends BaseController
 {
-    public function index()
-    {
-        $title = 'Daftar Artikel';
-        $model = new ArtikelModel();
-        $artikel = $model->getArtikelDenganKategori(); // Join kategori
-
-        return view('artikel/index', compact('artikel', 'title'));
-    }
-
-    public function view($slug)
-    {
-        $model = new ArtikelModel();
-        $artikel = $model->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
-                         ->select('artikel.*, kategori.nama_kategori')
-                         ->where('slug', $slug)
-                         ->get()
-                         ->getRowArray();
-
-        if (!$artikel) {
-            throw PageNotFoundException::forPageNotFound();
-        }
-
-        $title = $artikel['judul'];
-        return view('artikel/detail', compact('artikel', 'title'));
-    }
-
     public function admin_index()
     {
         $q = $this->request->getVar('q') ?? '';
         $kategori_id = $this->request->getVar('kategori_id') ?? '';
-        $page = $this->request->getVar('page') ?? 1;
+        $page = (int) ($this->request->getVar('page') ?? 1);
 
         $model = new ArtikelModel();
-        $builder = $model->table('artikel')
-            ->select('artikel.*, kategori.nama_kategori')
+
+        $builder = $model->select('artikel.*, kategori.nama_kategori')
             ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left');
 
         if (!empty($q)) {
@@ -56,21 +30,45 @@ class Artikel extends BaseController
         $artikel = $builder->paginate(10, 'default', $page);
         $pager = $model->pager;
 
-        // Untuk request AJAX, kirimkan JSON
         if ($this->request->isAJAX()) {
             return $this->response->setJSON([
                 'artikel' => $artikel,
                 'pager' => [
-                    'links' => $pager->links('default')
+                    'links' => $pager->links('default'),
                 ],
             ]);
         }
 
-        // Request biasa: render view dengan dropdown kategori saja
         $kategoriModel = new KategoriModel();
         return view('artikel/admin_index', [
-            'kategori' => $kategoriModel->findAll()
+            'kategori' => $kategoriModel->findAll(),
         ]);
+    }
+
+    public function index()
+    {
+        $title = 'Daftar Artikel';
+        $model = new ArtikelModel();
+        $artikel = $model->getArtikelDenganKategori();
+
+        return view('artikel/index', compact('artikel', 'title'));
+    }
+
+    public function view($slug)
+    {
+        $model = new ArtikelModel();
+        $artikel = $model->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
+            ->select('artikel.*, kategori.nama_kategori')
+            ->where('slug', $slug)
+            ->get()
+            ->getRowArray();
+
+        if (!$artikel) {
+            throw PageNotFoundException::forPageNotFound();
+        }
+
+        $title = $artikel['judul'];
+        return view('artikel/detail', compact('artikel', 'title'));
     }
 
     public function add()

@@ -45,7 +45,10 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
-    function fetchData(url) {
+    function fetchData(url = '/admin/artikel') {
+        const q = $('#search-box').val();
+        const kategori_id = $('#kategori-filter').val();
+
         $('#article-container').hide();
         $('#pagination-container').hide();
         $('#loading-spinner').show();
@@ -54,12 +57,17 @@ $(document).ready(function() {
             url: url,
             type: 'GET',
             dataType: 'json',
+            data: {
+                q: q,
+                kategori_id: kategori_id
+            },
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
             success: function(data) {
                 renderArticles(data.artikel);
                 $('#pagination-container').html(data.pager.links);
             },
-            error: function() {
+            error: function(xhr) {
+                console.error(xhr.responseText);
                 $('#article-container').html('<p class="text-danger text-center">Gagal memuat data.</p>');
             },
             complete: function() {
@@ -97,23 +105,20 @@ $(document).ready(function() {
 
     $('#search-form').on('submit', function(e) {
         e.preventDefault();
-        const q = $('#search-box').val();
-        const kategori_id = $('#kategori-filter').val();
-        fetchData(`/admin/artikel?q=${q}&kategori_id=${kategori_id}`);
+        fetchData();
     });
 
     $('#kategori-filter').on('change', function() {
         $('#search-form').trigger('submit');
     });
 
-    $(document).on('click', '.page-link', function(e) {
+    $(document).on('click', '.pagination a', function(e) {
         e.preventDefault();
         const url = $(this).attr('href');
-        fetchData(url);
+        if (url) fetchData(url);
     });
 
-    // Load pertama kali
-    fetchData('/admin/artikel');
+    fetchData();
 });
 </script>
 

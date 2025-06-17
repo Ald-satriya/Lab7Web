@@ -384,3 +384,5 @@ ArtikelModel.php
 Views/ajax/index.php
 iews/ajax/artikel_list.php
 app/Views/pagers/bootstrap.php
+
+Updatedate

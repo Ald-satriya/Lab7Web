@@ -10,9 +10,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="<?= base_url('style.css'); ?>"> <!-- Pastikan file ini ada di public/style.css -->
-
+    <!-- Custom Style -->
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -83,6 +81,6 @@
 <!-- Main Container Start -->
 <div class="container">
 
-<!-- jQuery + Bootstrap Bundle -->
+<!-- Wajib: jQuery + Bootstrap JS (untuk modal dan AJAX) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

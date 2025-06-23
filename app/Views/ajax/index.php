@@ -1,186 +1,178 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= $title ?? 'Admin Portal Berita' ?></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Beberapa styling tambahan jika diperlukan */
-        .badge {
-            font-size: 0.8em;
-            padding: 0.3em 0.6em;
-            border-radius: 0.25rem;
-        }
-        .badge.bg-success { background-color: #28a745 !important; color: white; }
-        .badge.bg-secondary { background-color: #6c757d !important; color: white; }
-    </style>
-</head>
-<body>
+<?= $this->include('template/header'); ?>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin Portal Berita</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Artikel</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Tambah Artikel</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mt-4">
-        <h2>Data Artikel</h2>
-
-        <div class="row mb-3 align-items-end">
-            <div class="col-md-4">
-                <label for="inputCari" class="form-label">Cari Judul:</label>
-                <input type="text" id="inputCari" class="form-control" placeholder="Masukkan kata kunci judul">
-            </div>
-            <div class="col-md-4">
-                <label for="filterKategori" class="form-label">Filter Kategori:</label>
-                <select id="filterKategori" class="form-select">
-                    <option value="">Semua Kategori</option>
-                    <?php
-                    // Pastikan $kategori_list ada dan di-pass dari controller (jika index() juga menampilkan ini)
-                    // Atau pastikan KategoriModel diinisialisasi di sini jika Anda tidak melewatkannya dari controller
-                    $kategoriModel = new App\Models\KategoriModel();
-                    $kategori_list = $kategoriModel->findAll();
-                    foreach ($kategori_list as $kategori): ?>
-                        <option value="<?= esc($kategori['id']) ?>"><?= esc($kategori['nama_kategori']) ?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
-            <div class="col-md-4">
-                <button id="btnCari" class="btn btn-primary">Terapkan Filter</button>
-            </div>
-        </div>
-
-        <hr>
-
-        <button class="btn btn-success mb-3" id="btnAddArtikel">Tambah Artikel Baru</button>
-
-        <div id="data-container">
-            <p>Memuat data artikel...</p>
-        </div>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4>📄 Data Artikel (AJAX)</h4>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalTambah">+ Tambah Artikel</button>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle" id="artikelTable">
+            <thead class="table-primary text-center">
+                <tr>
+                    <th>ID</th>
+                    <th>Judul</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
 
-    <script>
-        // Fungsi untuk memuat data artikel
-        function loadArtikel(page = 1, kategori = '', cari = '') {
+<!-- Modal Tambah -->
+<div class="modal fade" id="modalTambah" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formTambah" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Tambah Artikel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="judul" class="form-label">Judul</label>
+          <input type="text" name="judul" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="isi" class="form-label">Isi</label>
+          <textarea name="isi" class="form-control" rows="4" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="modalEdit" tabindex="-1">
+  <div class="modal-dialog">
+    <form id="formEdit" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Artikel</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id" id="edit-id">
+        <div class="mb-3">
+          <label for="edit-judul" class="form-label">Judul</label>
+          <input type="text" name="judul" id="edit-judul" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="edit-isi" class="form-label">Isi</label>
+          <textarea name="isi" id="edit-isi" class="form-control" rows="4" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-warning">Update</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    function loadData() {
+        $('#artikelTable tbody').html('<tr><td colspan="4" class="text-center">Memuat data...</td></tr>');
+
+        $.ajax({
+            url: "<?= base_url('ajax/getData') ?>",
+            method: "GET",
+            dataType: "json",
+            success: function(data) {
+                let html = '';
+                data.forEach(function(row) {
+                    html += `<tr>
+                        <td class="text-center">${row.id}</td>
+                        <td>${row.judul}</td>
+                        <td class="text-center">
+                            <span class="badge bg-${row.status == "1" ? "success" : "secondary"}">
+                                ${row.status == "1" ? "Published" : "Draft"}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-outline-primary btn-edit" data-id="${row.id}">Edit</button>
+                            <button class="btn btn-sm btn-outline-danger btn-delete" data-id="${row.id}">Delete</button>
+                        </td>
+                    </tr>`;
+                });
+                $('#artikelTable tbody').html(html);
+            },
+            error: function() {
+                $('#artikelTable tbody').html('<tr><td colspan="4" class="text-center text-danger">Gagal memuat data.</td></tr>');
+            }
+        });
+    }
+
+    loadData();
+
+    // Tambah Artikel
+    $('#formTambah').submit(function(e) {
+        e.preventDefault();
+        $.post("<?= base_url('ajax/save') ?>", $(this).serialize(), function(res) {
+            if (res.status === 'OK') {
+                $('#modalTambah').modal('hide');
+                $('#formTambah')[0].reset();
+                loadData();
+            } else {
+                alert(res.message);
+            }
+        }, 'json');
+    });
+
+    // Edit: buka modal dan isi data
+    $(document).on('click', '.btn-edit', function() {
+        const id = $(this).data('id');
+        $.get("<?= base_url('ajax/edit/') ?>" + id, function(data) {
+            if (data && data.id) {
+                $('#edit-id').val(data.id);
+                $('#edit-judul').val(data.judul);
+                $('#edit-isi').val(data.isi);
+                $('#modalEdit').modal('show');
+            } else {
+                alert('Data tidak ditemukan.');
+            }
+        }, 'json');
+    });
+
+    // Submit Edit
+    $('#formEdit').submit(function(e) {
+        e.preventDefault();
+        const id = $('#edit-id').val();
+        $.post("<?= base_url('ajax/update/') ?>" + id, $(this).serialize(), function(res) {
+            if (res.status === 'OK') {
+                $('#modalEdit').modal('hide');
+                $('#formEdit')[0].reset();
+                loadData();
+            } else {
+                alert(res.message);
+            }
+        }, 'json');
+    });
+
+    // Hapus Artikel
+    $(document).on('click', '.btn-delete', function(e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        if (confirm('Yakin ingin menghapus artikel ini?')) {
             $.ajax({
-                url: '<?= base_url('ajax/get') ?>', // Menggunakan base_url() helper PHP
-                method: 'GET',
-                data: {
-                    page: page,
-                    kategori: kategori,
-                    cari: cari
+                url: "<?= base_url('ajax/delete/') ?>" + id,
+                method: "DELETE",
+                success: function() {
+                    loadData();
                 },
-                success: function(response) {
-                    // Masukkan HTML respons ke dalam div container
-                    $('#data-container').html(response);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error loading articles:", error);
-                    alert("Gagal memuat data artikel. Silakan coba lagi.");
+                error: function() {
+                    alert('Gagal menghapus data.');
                 }
             });
         }
+    });
+});
+</script>
 
-        // Panggil fungsi loadArtikel() pertama kali saat halaman dimuat
-        $(document).ready(function() {
-            // Ambil nilai filter awal jika ada di URL saat halaman dimuat
-            const urlParams = new URLSearchParams(window.location.search);
-            const initialPage = urlParams.get('page') || 1;
-            const initialKategori = urlParams.get('kategori') || '';
-            const initialCari = urlParams.get('cari') || '';
-
-            // Set nilai filter di UI
-            $('#filterKategori').val(initialKategori);
-            $('#inputCari').val(initialCari);
-
-            // Muat data artikel dengan filter awal
-            loadArtikel(initialPage, initialKategori, initialCari);
-        });
-
-        // Event listener untuk klik tautan pagination
-        // Menggunakan event delegation karena tautan pagination dimuat secara dinamis
-        $(document).on('click', '#pagination .pagination li a', function(e) {
-            e.preventDefault(); // Mencegah perilaku default (reload halaman)
-
-            var href = $(this).attr('href');
-            // Pastikan href memiliki query string sebelum mencoba split
-            if (href && href.includes('?')) {
-                var urlParams = new URLSearchParams(href.split('?')[1]);
-                var page = urlParams.get('page'); // Ambil nilai parameter 'page'
-            } else {
-                // Jika href tidak memiliki query string (misal, klik 'Previous' atau 'Next' di halaman 1)
-                // maka diasumsikan ini adalah link ke halaman saat ini.
-                // Anda mungkin perlu logika yang lebih kompleks di sini jika router CI Anda tidak selalu menggunakan ?page=X
-                var page = 1; // Default ke halaman 1 jika tidak ada page param
-            }
-
-            // Ambil nilai filter dan pencarian yang sedang aktif di UI
-            var currentKategori = $('#filterKategori').val();
-            var currentCari = $('#inputCari').val();
-
-            // Muat ulang data artikel dengan nomor halaman dan filter yang baru
-            loadArtikel(page, currentKategori, currentCari);
-        });
-
-        // Event listener untuk perubahan pada dropdown filter kategori
-        $(document).on('change', '#filterKategori', function() {
-            var kategori = $(this).val();
-            var cari = $('#inputCari').val();
-            loadArtikel(1, kategori, cari); // Kembali ke halaman 1 saat filter kategori berubah
-        });
-
-        // Event listener untuk klik tombol 'Terapkan Filter' (pencarian)
-        $(document).on('click', '#btnCari', function() {
-            var kategori = $('#filterKategori').val();
-            var cari = $('#inputCari').val();
-            loadArtikel(1, kategori, cari); // Kembali ke halaman 1 saat pencarian baru dilakukan
-        });
-
-        // Anda juga bisa menambahkan event listener untuk input pencarian (misal, saat 'Enter' ditekan)
-        $(document).on('keypress', '#inputCari', function(e) {
-            if (e.which == 13) { // Key code 13 adalah Enter
-                $('#btnCari').click(); // Simulasikan klik tombol cari
-            }
-        });
-
-        // --- Contoh Event Listener untuk Tombol Ubah dan Hapus (modal/form AJAX) ---
-        // Anda harus sudah memiliki modal untuk edit/form untuk tambah di index.php atau layout utama
-        // dan fungsi JavaScript yang sesuai (misal: showEditModal, confirmDelete)
-
-        // $(document).on('click', '.btn-edit', function() {
-        //     var id = $(this).data('id');
-        //     // Panggil fungsi untuk menampilkan modal edit dan mengisi datanya
-        //     // Misalnya: showEditModal(id);
-        // });
-
-        // $(document).on('click', '.btn-delete', function() {
-        //     var id = $(this).data('id');
-        //     // Panggil fungsi untuk konfirmasi hapus dan mengirim permintaan delete via AJAX
-        //     // Misalnya: confirmDelete(id);
-        // });
-
-        // $(document).on('click', '#btnAddArtikel', function() {
-        //     // Panggil fungsi untuk menampilkan modal tambah artikel
-        //     // Misalnya: showAddModal();
-        // });
-
-    </script>
-</body>
-</html>
+<?= $this->include('template/footer'); ?>

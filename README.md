@@ -367,11 +367,6 @@ GET http://localhost:8080/post/{id}
 POST http://localhost:8080/post (form-data: judul, isi)
 ![screenshot](img/post.png)
 
-<
-POST http://localhost:8080/post (form-data: judul, isi)
-![screenshot](img/input.png)
-
-
 PUT http://localhost:8080/post/{id} (raw/json: judul, isi)
 ![screenshot](img/put.png)
 
@@ -385,3 +380,4 @@ iews/ajax/artikel_list.php
 app/Views/pagers/bootstrap.php
 
 Updatedate
+

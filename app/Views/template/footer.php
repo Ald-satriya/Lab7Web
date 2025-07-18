@@ -16,7 +16,7 @@
 </aside>
 </section>
 <footer>
-    <p>&copy; 2025 - Universitas Pelita Bangsa (M Ilham Firdaus)</p>
+    <p>&copy; 2025 - Universitas Pelita Bangsa (Aldi Satriya)</p>
 </footer>
 </div>
 </body>

@@ -149,4 +149,29 @@ class Artikel extends BaseController
         ]);
     }
 
+    public function dashboard()
+    {
+        $artikelModel = new ArtikelModel();
+        $kategoriModel = new KategoriModel();
+
+        $totalArtikel = $artikelModel->countAll();
+        $totalKategori = $kategoriModel->countAll();
+        $artikelTerbaru = $artikelModel->orderBy('created_at', 'DESC')->findAll(5);
+
+        // Ambil jumlah artikel per kategori
+        $artikelPerKategori = $artikelModel
+            ->select('kategori.nama_kategori, COUNT(*) as jumlah')
+            ->join('kategori', 'kategori.id_kategori = artikel.id_kategori', 'left')
+            ->groupBy('artikel.id_kategori')
+            ->findAll();
+
+        return view('admin_dashboard', [
+            'title' => 'Dashboard Admin',
+            'totalArtikel' => $totalArtikel,
+            'totalKategori' => $totalKategori,
+            'artikelTerbaru' => $artikelTerbaru,
+            'artikelPerKategori' => $artikelPerKategori
+        ]);
+    }
+
 }

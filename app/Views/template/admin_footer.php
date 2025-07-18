@@ -1,7 +1,7 @@
 </div> <!-- penutup container -->
 
 <footer>
-<p>&copy; 2025 - Admin Universitas Pelita Bangsa (M Ilham Firdaus)</p>
+<p>&copy; 2025 - Admin Universitas Pelita Bangsa (Aldi Satriya)</p>
 </footer>
 
 

@@ -56,6 +56,5 @@ $routes->options('post/(:any)', 'PostApi::options');
 
 $routes->get('dashboard', 'Admin::dashboard');
 
-
 $routes->get('/contact', 'Contact::index'); // untuk menampilkan form
 $routes->post('/contact', 'Contact::send'); // untuk menangani form submit

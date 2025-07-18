@@ -468,3 +468,70 @@ lab8_vuejs/
 ---
 
 © 2025 Universitas Pelita Bangsa
+
+# 📰 Admin Portal Berita — UI/UX Update Galaxy Theme
+
+Selamat datang di proyek **Admin Portal Berita**!  
+Repository ini merupakan dokumentasi pembaruan tampilan **UI/UX** dengan tema **Galaxy** ✨ yang modern dan responsif.
+
+---
+
+## 🚀 Update Terbaru
+
+### 🔧 Struktur Update UI/UX
+
+#### 📁 `/admin/artikel/`
+
+1. **Dashboard**  
+   - Redesain total dengan tema gelap Galaxy.
+   - Integrasi Chart.js untuk statistik artikel.
+   - Layout responsif dan navigasi bar yang lebih interaktif.
+   ![screenshot](img/admin_dashboard.png)
+
+2. **Artikel (Manajemen Artikel)**  
+   - Tampilan daftar artikel kini lebih elegan dan mudah dibaca.
+   - Efek hover dan transisi antar elemen.
+   - Penggunaan card & table Bootstrap untuk data.
+      ![screenshot](img/admin_artikel2.png)
+
+3. **Tambah Artikel**  
+   - Form input artikel dengan tata letak bersih dan terang.
+   - Validasi input & UX form yang ramah pengguna.
+         ![screenshot](img/admin_tambahart.png)
+
+---
+
+#### 📁 `/artikel/`
+
+1. **Home**  
+   - Tampilan awal pengunjung dengan typography kuat.
+   - Background Galaxy dan struktur hero section.
+            ![screenshot](img/home.png)
+
+2. **Artikel (Publik)**  
+   - Tampilan artikel individual & list dengan layout konten yang fokus pada kenyamanan membaca.
+   - Navigasi antar artikel yang lebih smooth.
+         ![screenshot](img/artkel.png)
+
+3. **About**  
+   - Informasi tentang website & tim pengembang dengan struktur single-column.
+         ![screenshot](img/about.png)
+
+4. **Contact**  
+   - Form kontak minimalis dengan tema gelap.
+   - Feedback interaktif (terima kasih, validasi form).
+            ![screenshot](img/Contact.png)
+
+---
+
+## 🌌 Teknologi Digunakan
+
+- **HTML5 + CSS3**
+- **Bootstrap 5.3**
+- **Chart.js + Chart.js DataLabels**
+- **PHP (CodeIgniter / Native PHP Compatible)**
+- **Responsive Web Design**
+- **Galaxy-style UI (Dark mode, Gradient, Stars)**
+
+---
+
